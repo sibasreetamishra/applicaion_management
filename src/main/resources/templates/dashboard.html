@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Advanced Middleware Dashboard</title>
+    <style>
+        body { font-family: Arial; background:#f4f6f8; padding:20px; }
+        table { width:100%; border-collapse: collapse; background:white; }
+        th, td { padding:10px; border:1px solid #ddd; text-align:center; }
+        th { background:#2c3e50; color:white; }
+        .running { color:green; font-weight:bold; }
+        .stopped { color:red; font-weight:bold; }
+        button { padding:5px 10px; }
+    </style>
+</head>
+<body>
+
+<h2>Enterprise Middleware Control Panel</h2>
+
+<table>
+    <tr>
+        <th>Application</th>
+        <th>Status</th>
+        <th>PID</th>
+        <th>CPU %</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="app : ${apps}">
+        <td th:text="${app.name}"></td>
+        <td th:text="${app.status}"
+            th:classappend="${app.status == 'active'} ? 'running' : 'stopped'"></td>
+        <td th:text="${app.pid}"></td>
+        <td th:text="${app.cpu}"></td>
+        <td>
+            <form th:action="@{'/start/' + ${app.name}}" method="post" style="display:inline;">
+                <button type="submit">Start</button>
+            </form>
+            <form th:action="@{'/stop/' + ${app.name}}" method="post" style="display:inline;">
+                <button type="submit">Stop</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

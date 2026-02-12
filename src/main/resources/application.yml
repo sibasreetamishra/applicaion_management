@@ -1,0 +1,11 @@
+
+server:
+  port: 9443
+
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    user:
+      name: admin
+      password: StrongPassword@123
